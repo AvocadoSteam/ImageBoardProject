@@ -1,0 +1,17 @@
+.navbar {
+    border: 2px solid #CCC;
+}
+.main_area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+img {
+    max-width: 80%;
+}
+.image {
+    flex-basis: 40%;
+}
+.comments {
+    padding-left: 10px;
+}
