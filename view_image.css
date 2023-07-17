@@ -6,6 +6,7 @@ html, body {
     height: 40px;
     border: 2px solid navy;
     white-space: nowrap;
+    background-color: azure;
 }
 .navbar_content {
     display: inline-block;
@@ -40,4 +41,11 @@ img {
     padding-left: 10px;
     margin: -2px;
     flex-grow: 0.2;
+    background-color: aliceblue;
+}
+#post-comment-button {
+
+}
+#post-comment-comment {
+
 }

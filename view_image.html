@@ -7,14 +7,14 @@
 </head>
 <body>
     <div class="navbar">
-        <button class="navbar_content"><b>Search</b></button> <!-- Calls a search on all user entered tags -->
-        <input class="navbar_content" type="text"> <!-- Add to user tags when enter is clicked -->
+        <input type="button" class="navbar_content" value="Search"></inputbutton> <!-- Calls a search on all user entered tags -->
+        <input type="text" class="navbar_content" type="text"> <!-- Add to user tags when enter is clicked -->
+        <input type="button" class="navbar_content" value="Post Comment" id="post-comment-button"> <!-- Submit comment -->
+        <input type="text" class="navbar_content" name="Post-Comment-Comment" id="post-comment-comment"> <!-- Enter the comment -->
         <!-- List of user entered tags -->
-        <p class="navbar_content">
-            <b>User Entered Tags:</b> <i>#dog</i>
-        </p>
-
-        <button onClick="location.replace('homepage.html');" class="navbar_content" style="float: right">Go Back</button> <!-- Returns to previous page -->
+        <p class="navbar_content"><b>User Entered Tags:</b> <i>#dog</i></p>
+        <!-- Returns to previous page -->
+        <button onClick="location.replace('homepage.html');" class="navbar_content" style="float: right">Go Back</button>
     </div>
 
     <div class="main_area">

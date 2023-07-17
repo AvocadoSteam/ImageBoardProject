@@ -28,10 +28,12 @@ http.createServer((req, res) => {
     else if (p[1] === "script.js") {
         getFile(res, p[1], "text/javascript");
     }
+    /*
     else if (p[3].endsWith(".png")) {
         res.writeHead(200, {'Content Type': 'image/png'});
         res.end(p[3], 'binary')
     }
+     */
     else {
         res.writeHead(404, {'Content-Type': 'text/html'});
         res.write("<html><head></head><body><p>Oops! No content here.</p></body><html/>");
