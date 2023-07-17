@@ -1,7 +1,12 @@
 const http = require('http');
 const url = require("url");
 const fs = require('fs');
+const express = require('express');
+const app = express();
+const path = require('path');
 
+// https://stackoverflow.com/questions/50441000/include-css-and-js-files-in-node-js
+app.use(express.static(__dirname + '/public'));
 /*
 BELOW:
     - Basic creation of server
@@ -21,3 +26,4 @@ http.createServer(function (req, res) {
         return res.end();
     });
 }).listen(8080);
+
