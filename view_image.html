@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>View Image</title>
-    <link rel="stylesheet" href="public/css/view_image.css" type="text/css"  />
+    <link rel="stylesheet" href="view_image.css" type="text/css"  />
 </head>
 <body>
     <div class="navbar">
         <button class="navbar_content"><b>Search</b></button> <!-- Calls a search on all user entered tags -->
         <input class="navbar_content" type="text"> <!-- Add to user tags when enter is clicked -->
-
-
         <!-- List of user entered tags -->
         <p class="navbar_content">
             <b>User Entered Tags:</b> <i>#dog</i>
         </p>
+
+        <button onClick="location.replace('homepage.html');" class="navbar_content" style="float: right">Go Back</button> <!-- Returns to previous page -->
     </div>
 
     <div class="main_area">
