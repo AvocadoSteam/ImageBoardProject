@@ -4,7 +4,7 @@ const makePost = async (contents) => {
         "contents": contents
     });
     try {
-        const response = await fetch("http://localhost:8080/view_image", {
+        const response = await fetch("http://localhost:8080/view_image.html", {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -12,7 +12,8 @@ const makePost = async (contents) => {
             method: "POST",
             body: bodyContents
         });
-
+        console.log(fetch);
+        console.log(response);
         if (response.ok) {
             // If the response is successful, add the comment to the comments section
             $("<p>").text(contents).appendTo('.comments');

@@ -1,5 +1,3 @@
-
-
 const http = require('http');
 const fs = require('fs').promises;
 const url = require('url');
@@ -17,8 +15,7 @@ const getFile = (res, path, content_type) => {
 
 http.createServer((req, res) => {
     const p = req.url.split("/");
-    console.log(req.url + "\trequest url");
-    console.log(p[1] + "\tending of file");
+    console.log(req.url + "\t<<< Request URL");
     if (p[1] === "" || p[1] === "homepage.html") {
         getFile(res, "homepage.html", "text/html");
     }
@@ -43,7 +40,7 @@ http.createServer((req, res) => {
         res.end();
     }
 
-    if (req.method === "POST" && p[1] === "view_image") {
+    if (req.method === "POST" && p[1] === "view_image.js") {
         let body = "";
 
         req.on("data", (chunk) => {
