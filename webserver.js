@@ -1,11 +1,19 @@
 const http = require('http');
 const fs = require('fs').promises;
 const url = require('url');
+
+//TODO: create homepage
+
+//TODO: create a page that displays a list of images based on a search request
+
+//TODO: create a page that displays one image, with its related tags, and any comments.json attached to it
+
+//TODO: implement "promises"
+
 /*
 NOTE:
     Used prof notes as reference for stuff below
  */
-
 const getFile = (res, path, content_type) => {
     res.writeHead(200, {'Content-Type': content_type});
     fs.readFile(path)
@@ -25,7 +33,7 @@ http.createServer((req, res) => {
     else if (p[1] === "homepage.css" || p[1] === "image_list.css"|| p[1] === "view_image.css") {
         getFile(res, p[1], "text/css");
     }
-    else if (p[1] === "script.js" || p[1] === "view_image.js") {
+    else if (p[1] === "view_image.js") {
         getFile(res, p[1], "text/javascript");
     }
     /*
