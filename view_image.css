@@ -1,3 +1,20 @@
+.navbar {
+    border: 2px solid #CCC;
+}
+.main_area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+img {
+    max-width: 80%;
+}
+.image {
+    flex-basis: 40%;
+}
+.comments {
+    padding-left: 10px;
+}
 html, body {
     height: 100%;
     width: 99.6%;
@@ -37,11 +54,13 @@ img {
 }
 .comments {
     height: 101%;
+    width: 15%;
     border-left: 2px solid navy;
     padding-left: 10px;
     margin: -2px;
     flex-grow: 0.2;
     background-color: aliceblue;
+    word-wrap: break-word;
 }
 #post-comment-button {
 
