@@ -3,8 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>View Image</title>
+    <link rel="stylesheet" href="view_image.css" type="text/css"  />
 </head>
 <body>
-    <h1>View Image</h1>
+    <div class="navbar">
+        <input type="button" class="navbar_content" value="Search"></inputbutton> <!-- Calls a search on all user entered tags -->
+        <input type="text" class="navbar_content" type="text"> <!-- Add to user tags when enter is clicked -->
+        <input type="button" class="navbar_content" value="Post Comment" id="post-comment-button"> <!-- Submit comment -->
+        <input type="text" class="navbar_content" name="Post-Comment-Comment" id="post-comment-comment"> <!-- Enter the comment -->
+        <!-- List of user entered tags -->
+        <p class="navbar_content"><b>User Entered Tags:</b> <i>#dog</i></p>
+        <!-- Returns to previous page -->
+        <button onClick="location.replace('homepage.html');" class="navbar_content" style="float: right">Go Back</button>
+    </div>
+
+    <div class="main_area">
+        <!-- Image -->
+        <div class="image">
+            <img src="media/images/dog2.jpg">
+        </div>
+
+        <!-- Comments -->
+        <div class="comments">
+            <p></p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="view_image.js"></script>
 </body>
 </html>
