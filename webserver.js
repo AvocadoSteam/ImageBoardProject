@@ -23,7 +23,9 @@ const getFile = (res, path, content_type) => {
 
 http.createServer((req, res) => {
     const p = req.url.split("/");
-    console.log(req.url + "\t<<< Request URL");
+    console.log(req.url);
+    console.log(p);
+    console.log(p.length);
     if (p[1] === "" || p[1] === "homepage.html") {
         getFile(res, "homepage.html", "text/html");
     }
@@ -36,12 +38,6 @@ http.createServer((req, res) => {
     else if (p[1] === "view_image.js") {
         getFile(res, p[1], "text/javascript");
     }
-    /*
-    else if (p[3].endsWith(".png")) {
-        res.writeHead(200, {'Content Type': 'image/png'});
-        res.end(p[3], 'binary')
-    }
-     */
     else {
         res.writeHead(404, {'Content-Type': 'text/html'});
         res.write("<html><head></head><body><p>Oops! No content here.</p></body><html/>");
