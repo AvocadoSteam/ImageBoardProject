@@ -4,27 +4,27 @@
     [
       {
         "id" : 1,
-        "path" : "media/images/cat1.jpg",
+        "path" : "replace with link",
         "tags": ["#cat", "#animal"]
       },
       {
         "id" : 2,
-        "path" : "media/images/cat2.jpg",
+        "path" : "replace with link",
         "tags": ["#cat", "#animal"]
       },
       {
         "id" : 3,
-        "path" : "media/images/computer.jpg",
+        "path" : "replace with link",
         "tags": ["#computer", "#technology"]
       },
       {
         "id" : 4,
-        "path" : "media/images/dog1.jpg",
+        "path" : "replace with link",
         "tags": ["#dog", "#animal"]
       },
       {
         "id" : 5,
-        "path" : "media/images/dog2.jpg",
+        "path" : "replace with link",
         "tags": ["#dog", "#animal"]
       }
     ]
