@@ -84,7 +84,7 @@ const getImage = async (id, path, tags) => {
 
 const refreshImage = async (image_id) => {
     try {
-        // Use a relative URL to fetch comments.json
+        // Use a relative URL to fetch images.json
         const response = await fetch("/images.json");
 
         if (response.ok) {
@@ -92,11 +92,8 @@ const refreshImage = async (image_id) => {
             const i = image.images;
             console.log(i);
 
-            // Clear the existing comments
-            //$(".image").empty();
 
-            // Append each comment to the comments section
-            //document.getElementById("page_image").src = path;
+            // Load image with specified ID
             for (const img of i) {
                 if (img["id"] == 1) { // replace 1 with image_id
                     console.log(img["id"]);

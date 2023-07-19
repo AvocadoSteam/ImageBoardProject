@@ -35,6 +35,15 @@ img {
 .image * {
     vertical-align: middle;
 }
+.image_content {
+    display: block;
+    max-width: 30%;
+    max-height: 30%;
+    width: auto;
+    height: auto;
+    overflow: auto;
+    position: relative;
+}
 .comments {
     height: 101%;
     width: 15%;
@@ -46,5 +55,8 @@ img {
     word-wrap: break-word;
 }
 #search_for_tags {
+
+}
+#page_image {
 
 }
