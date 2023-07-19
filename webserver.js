@@ -46,6 +46,16 @@ const getFile = async (res, path, content_type) => {
     }
 }
 
+const getImages = async () => {
+    try {
+        const content = await fs.readFile("images.json");
+        return JSON.parse(content);
+    } catch (error) {
+        console.error("Error reading comments:", error);
+        return { images: [] };
+    }
+}
+
 http.createServer(async (req, res) => {
     await createCommentsFileIfNotExists();
 
@@ -70,12 +80,23 @@ http.createServer(async (req, res) => {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ comments }));
     }
+    else if (p[1] === "images.json") {
+        const { images } = await getImages();
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({ images }));
+    }
     else {
         res.writeHead(404, { 'Content-Type': 'text/html' });
         res.write("<html><head></head><body><p>Oops! No content here.</p></body><html/>");
         res.end();
     }
 
+    // RETRIEVE IMAGE
+    if (req.method === "GET" && p[1] === "view_image.js") {
+
+    }
+
+    // POST COMMENTS
     if (req.method === "POST" && p[1] === "view_image.js") {
         let body = "";
 
@@ -98,10 +119,7 @@ http.createServer(async (req, res) => {
                 res.writeHead(200, { "Content-Type": "application/json" });
                 res.end(JSON.stringify({ status: "success", message: "Comment posted successfully" }));
             } catch (error) {
-
                 console.error("Error occurred while processing POST request:", error);
-
-
                 res.writeHead(500, { "Content-Type": "application/json" });
                 res.end(JSON.stringify({ status: "error", message: "Internal server error" }));
             }

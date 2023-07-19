@@ -1,15 +1,14 @@
 {
-  "image_count": 5,
   "images":
     [
       {
         "id" : 1,
-        "path" : "replace with link",
+        "path" : "https://rb.gy/1w97z",
         "tags": ["#cat", "#animal"]
       },
       {
         "id" : 2,
-        "path" : "replace with link",
+        "path" : "https://th.bing.com/th?id=OIP.JdjSF7yPa2PodsGvlG0RCQHaE6&w=306&h=203&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2",
         "tags": ["#cat", "#animal"]
       },
       {
