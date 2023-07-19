@@ -37,11 +37,13 @@ img {
 }
 .comments {
     height: 101%;
+    width: 15%;
     border-left: 2px solid navy;
     padding-left: 10px;
     margin: -2px;
     flex-grow: 0.2;
     background-color: aliceblue;
+    word-wrap: break-word;
 }
 #post-comment-button {
 

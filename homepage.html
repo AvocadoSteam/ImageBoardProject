@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Homepage</title>
+    <link rel="stylesheet" href="homepage.css" type="text/css"  />
 </head>
 <body>
-    <h1>Homepage</h1>
-    <button onClick="location.replace('image_list.html');"> View Image List </button>
-    <button onClick="location.replace('view_image.html');">View Image </button>
+    <h1 id="homepage" style="font-size:32px">Image Board</h1>
+    <div class="navbar">
+        <button onClick="location.replace('image_list.html');" class="navbar_content"> View Image List </button>
+        <button onClick="location.replace('view_image.html');" class="navbar_content">View Image </button>
+    </div>
+
+    <div id="topic-selection" class="navbar" style="margin-top:-2px;padding-top:15px;border-top:none;padding-left:6px;font-size:20px;">
+        <input type="button" id="lookup-button" value="Search" style="font-size:20px">
+        <input type="text" name="Topic" id="topic-id-selection" placeholder="Enter tags separated by commas" style="font-size:20px">
+    </div>
+
 </body>
 </html>
