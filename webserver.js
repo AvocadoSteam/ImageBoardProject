@@ -1,27 +1,54 @@
+// server.js
+
 const http = require('http');
 const fs = require('fs').promises;
 const url = require('url');
 
-//TODO: create homepage
-
-//TODO: create a page that displays a list of images based on a search request
-
-//TODO: create a page that displays one image, with its related tags, and any comments.json attached to it
-
-//TODO: implement "promises"
-
-/*
-NOTE:
-    Used prof notes as reference for stuff below
- */
-const getFile = (res, path, content_type) => {
-    res.writeHead(200, {'Content-Type': content_type});
-    fs.readFile(path)
-        .then(content => res.write(content))
-        .then(_ => res.end());
+const createCommentsFileIfNotExists = async () => {
+    try {
+        await fs.access("comments.json");
+    } catch (error) {
+        console.log("Creating comments.json file...");
+        await fs.writeFile("comments.json", JSON.stringify({ comments: [] }));
+        console.log("comments.json file created.");
+    }
 }
 
-http.createServer((req, res) => {
+const getComments = async () => {
+    try {
+        const content = await fs.readFile("comments.json");
+        return JSON.parse(content);
+    } catch (error) {
+        console.error("Error reading comments:", error);
+        return { comments: [] };
+    }
+}
+
+const saveComments = async (comments) => {
+    try {
+        await fs.writeFile("comments.json", JSON.stringify({ comments }));
+    } catch (error) {
+        console.error("Error saving comments:", error);
+    }
+}
+
+const getFile = async (res, path, content_type) => {
+    res.writeHead(200, { 'Content-Type': content_type });
+    try {
+        const content = await fs.readFile(path);
+        res.write(content);
+        res.end();
+    } catch (error) {
+        console.error("Error reading file:", error);
+        res.writeHead(500, { 'Content-Type': 'text/html' });
+        res.write("<html><head></head><body><p>Oops! Something went wrong.</p></body><html/>");
+        res.end();
+    }
+}
+
+http.createServer(async (req, res) => {
+    await createCommentsFileIfNotExists();
+
     const p = req.url.split("/");
     console.log(req.url);
     console.log(p);
@@ -32,14 +59,19 @@ http.createServer((req, res) => {
     else if (p[1] === "image_list.html" || p[1] === "view_image.html") {
         getFile(res, p[1], "text/html");
     }
-    else if (p[1] === "homepage.css" || p[1] === "image_list.css"|| p[1] === "view_image.css") {
+    else if (p[1] === "homepage.css" || p[1] === "image_list.css" || p[1] === "view_image.css") {
         getFile(res, p[1], "text/css");
     }
     else if (p[1] === "view_image.js") {
         getFile(res, p[1], "text/javascript");
     }
+    else if (p[1] === "comments.json") {
+        const { comments } = await getComments();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ comments }));
+    }
     else {
-        res.writeHead(404, {'Content-Type': 'text/html'});
+        res.writeHead(404, { 'Content-Type': 'text/html' });
         res.write("<html><head></head><body><p>Oops! No content here.</p></body><html/>");
         res.end();
     }
@@ -51,25 +83,33 @@ http.createServer((req, res) => {
             body += chunk;
         });
 
-        req.on("end", () => {
-            // Parse the JSON data from the request body
+        req.on("end", async () => {
             try {
                 const postData = JSON.parse(body);
-                // Handle the contents here, e.g., store it in a database or do other processing
-                console.log(postData.contents);
+                const comment = postData.contents;
 
-                // Respond with a success status and message
-                res.writeHead(200, {"Content-Type": "application/json"});
-                res.end(JSON.stringify({status: "success", message: "Comment posted successfully"}));
+
+                const { comments } = await getComments();
+
+
+                comments.push({ text: comment });
+
+
+                await saveComments(comments);
+
+
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ status: "success", message: "Comment posted successfully" }));
             } catch (error) {
-                // Handle any errors while parsing JSON or processing data
+
                 console.error("Error occurred while processing POST request:", error);
 
-                // Respond with an error status and message
-                res.writeHead(500, {"Content-Type": "application/json"});
-                res.end(JSON.stringify({status: "error", message: "Internal server error"}));
-            }
-        })
-    }
-}).listen(8080);
 
+                res.writeHead(500, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ status: "error", message: "Internal server error" }));
+            }
+        });
+    }
+}).listen(8080, () => {
+    console.log("Server running on http://localhost:8080/");
+});
