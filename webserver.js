@@ -86,17 +86,14 @@ http.createServer(async (req, res) => {
         req.on("end", async () => {
             try {
                 const postData = JSON.parse(body);
+                const userName = postData.name;
                 const comment = postData.contents;
-
 
                 const { comments } = await getComments();
 
-
-                comments.push({ text: comment });
-
+                comments.push({ name: userName, text: comment });
 
                 await saveComments(comments);
-
 
                 res.writeHead(200, { "Content-Type": "application/json" });
                 res.end(JSON.stringify({ status: "success", message: "Comment posted successfully" }));

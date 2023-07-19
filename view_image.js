@@ -1,7 +1,8 @@
 "use strict";
 
-const makePost = async (contents) => {
+const makePost = async (name, contents) => {
     const bodyContents = JSON.stringify({
+        "name": name,
         "contents": contents
     });
     try {
@@ -42,7 +43,7 @@ const refreshComments = async () => {
 
             // Append each comment to the comments section
             for (const commentObj of comments) {
-                $("<p>").text(commentObj.text).appendTo('.comments');
+                $("<p>").text(commentObj.name + ": " + commentObj.text).appendTo('.comments');
             }
         } else {
             console.error("Failed to fetch comments:", response.status);
@@ -55,8 +56,9 @@ const refreshComments = async () => {
 // Add event listener to the "Post Comment" button
 $("#post-comment-button").click(async () => {
     try {
+        const name = $("#post-comment-name").val();
         const comment = $("#post-comment-comment").val();
-        await makePost(comment);
+        await makePost(name, comment);
     } catch (error) {
         console.log("Error:", error);
     }
