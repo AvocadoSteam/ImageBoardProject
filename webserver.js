@@ -72,7 +72,7 @@ http.createServer(async (req, res) => {
     else if (p[1] === "homepage.css" || p[1] === "image_list.css" || p[1] === "view_image.css") {
         getFile(res, p[1], "text/css");
     }
-    else if (p[1] === "view_image.js") {
+    else if (p[1] === "view_image.js" || p[1] === "image_list.js" || p[1] === "homepage.js") {
         getFile(res, p[1], "text/javascript");
     }
     else if (p[1] === "comments.json") {
