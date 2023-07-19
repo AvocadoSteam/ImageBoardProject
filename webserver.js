@@ -21,6 +21,27 @@ const getFile = (res, path, content_type) => {
         .then(_ => res.end());
 }
 
+const saveComments = (response, image_id, name, comment) => {
+    fs.writeFile("media/comments.json", `{
+        "image_id": ${image_id},
+        "name": "${name}",
+        "post": "${comment}"
+    }`).then(content => {
+        const imageComments = JSON.parse(comment);
+        imageComments.push(image_id, name, comment);
+        console.log("IMAGE COMMENTS\t" + imageComments);
+        return fs.writeFile("media/comments.json", JSON.stringify(imageComments));
+    }).then(_ => {
+        response.writeHead(200, {'Content-Type': 'application/json'});
+        response.write('{"success": "Comment added successfully"}');
+        response.end();
+    }).catch(_ => {
+        response.writeHead(404, {'Content-Type': 'application/json'});
+        response.write('{"error": "No topic for given ID"}');
+        response.end();
+    });
+}
+
 http.createServer((req, res) => {
     const p = req.url.split("/");
     console.log(req.url);

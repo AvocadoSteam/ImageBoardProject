@@ -1,8 +1,17 @@
 "use strict";
+
 const makePost = async (contents) => {
+    const bodyContents = JSON.stringify({
+        "image_id": 1,
+        "name": "Greg Lawthorn",
+        "post": contents
+    });
+    /*
     const bodyContents = JSON.stringify({
         "contents": contents
     });
+
+     */
     try {
         const response = await fetch("http://localhost:8080/view_image.html", {
             headers: {
@@ -16,6 +25,8 @@ const makePost = async (contents) => {
         console.log(response);
         if (response.ok) {
             // If the response is successful, add the comment to the comments section
+            $("<p>").text(1).appendTo('.comments');
+            $("<p>").text("Greg Lawthorn").appendTo('.comments');
             $("<p>").text(contents).appendTo('.comments');
         } else {
             // Handle errors if the response is not successful
