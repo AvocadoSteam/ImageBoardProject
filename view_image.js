@@ -1,7 +1,13 @@
 "use strict";
 
+/***
+ * Creates a comment on an image
+ * @param name name of person posting
+ * @param contents comment body
+ */
 const makePost = async (name, contents) => {
     const bodyContents = JSON.stringify({
+        "image_id": getImageIDCookie,
         "name": name,
         "contents": contents
     });
@@ -28,7 +34,9 @@ const makePost = async (name, contents) => {
     }
 };
 
-// Function to refresh the comments section
+/***
+ * Updates the comments section
+ */
 const refreshComments = async () => {
     try {
         // Use a relative URL to fetch comments.json
@@ -37,13 +45,17 @@ const refreshComments = async () => {
         if (response.ok) {
             const commentsData = await response.json();
             const comments = commentsData.comments;
+            console.log(comments);
 
             // Clear the existing comments
             $(".comments").empty();
 
             // Append each comment to the comments section
             for (const commentObj of comments) {
-                $("<p>").text(commentObj.name + ": " + commentObj.text).appendTo('.comments');
+                if (commentObj.image_id == getImageIDCookie) {
+                    $(".comments").append(`<p style="font-size:24px;"><b>${commentObj.name}:</b> ${commentObj.text}</p>`);
+                }
+                //$("<p>").text("<b>" + commentObj.name + ":</b>" + commentObj.text).appendTo('.comments');
             }
         } else {
             console.error("Failed to fetch comments:", response.status);
@@ -82,6 +94,10 @@ const getImage = async (id, path, tags) => {
     }
 }
 
+/***
+ * Refreshes the image on the page
+ * @param image_id id of image to display
+ */
 const refreshImage = async (image_id) => {
     try {
         // Use a relative URL to fetch images.json
@@ -92,10 +108,9 @@ const refreshImage = async (image_id) => {
             const i = image.images;
             console.log(i);
 
-
             // Load image with specified ID
             for (const img of i) {
-                if (img["id"] == 1) { // replace 1 with image_id
+                if (img["id"] == image_id) { // replace 1 with image_id
                     console.log(img["id"]);
                     console.log(img.path)
                     $("#page_image").attr("src", img.path);
@@ -120,8 +135,13 @@ $("#post-comment-button").click(async () => {
     }
 });
 
+// https://developer.mozilla.org/en-US/docs/web/api/document/cookie
+// Retrieves value from a cookie to grab the image_id of the desired image for display
+const getImageIDCookie = document.cookie
+    .split(";")
+    .find((row) => row.startsWith("image_id="))?.split("=")[1];
 
 $(document).ready(async () => {
     await refreshComments();
-    await refreshImage();
+    await refreshImage(getImageIDCookie);
 });
