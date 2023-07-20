@@ -1,3 +1,4 @@
+"use strict";
 // server.js
 
 const http = require('http');
@@ -60,18 +61,17 @@ http.createServer(async (req, res) => {
     await createCommentsFileIfNotExists();
 
     const p = req.url.split("/");
-    console.log(req.url);
     if (p[1] === "" || p[1] === "homepage.html") {
-        getFile(res, "homepage.html", "text/html");
+        await getFile(res, "homepage.html", "text/html");
     }
     else if (p[1] === "image_list.html" || p[1] === "view_image.html") {
-        getFile(res, p[1], "text/html");
+        await getFile(res, p[1], "text/html");
     }
     else if (p[1] === "homepage.css" || p[1] === "image_list.css" || p[1] === "view_image.css") {
-        getFile(res, p[1], "text/css");
+        await getFile(res, p[1], "text/css");
     }
     else if (p[1] === "view_image.js" || p[1] === "image_list.js" || p[1] === "homepage.js") {
-        getFile(res, p[1], "text/javascript");
+        await getFile(res, p[1], "text/javascript");
     }
     else if (p[1] === "comments.json") {
         const { comments } = await getComments();
@@ -107,16 +107,13 @@ http.createServer(async (req, res) => {
                 const postData = JSON.parse(body);
 
                 // https://developer.mozilla.org/en-US/docs/web/api/document/cookie
-                const getImageIDCookie = document.cookie
-                    .split(";")
-                    .find((row) => row.startsWith("image_id="))?.split("=")[1];
-
+                const id = postData.image_id;
                 const userName = postData.name;
                 const comment = postData.contents;
 
                 const { comments } = await getComments();
 
-                comments.push({ image_id: getImageIDCookie, name: userName, text: comment });
+                comments.push({ image_id: id, name: userName, text: comment });
 
                 console.log(comments);
 
