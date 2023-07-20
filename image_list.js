@@ -8,10 +8,18 @@ const loadAllImages = async () => {
         if (response.ok) {
             const image = await response.json();
             const i = image.images;
-            console.log(i);
 
-            for (const img of i) {
+            if (getTagsAsCookie == "") {
                 $(".image").append(`<img class="image_content" src="${img.path}">`);
+            }
+            else {
+                for (const img of i) {
+                    for (const tag of getTagsAsCookie) {
+                        if (img.tags.indexOf(tag) >= 0) {
+                            $(".image").append(`<img class="image_content" src="${img.path}">`);
+                        }
+                    }
+                }
             }
         } else {
             console.error("Failed to fetch comments:", response.status);
@@ -21,6 +29,10 @@ const loadAllImages = async () => {
     }
 }
 
+const getTagsAsCookie = JSON.parse(document.cookie
+    .split(";")
+    .find((row) => row.startsWith(" tags="))?.split("=")[1]);
+
 $(document).ready(async () => {
-    await loadAllImages();
+    await loadAllImages(getTagsAsCookie);
 });
