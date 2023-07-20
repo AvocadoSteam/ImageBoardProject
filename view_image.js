@@ -1,5 +1,10 @@
 "use strict";
 
+/***
+ * Creates a comment on an image
+ * @param name name of person posting
+ * @param contents comment body
+ */
 const makePost = async (name, contents) => {
     const bodyContents = JSON.stringify({
         "image_id": getImageIDCookie,
@@ -29,7 +34,9 @@ const makePost = async (name, contents) => {
     }
 };
 
-// Function to refresh the comments section
+/***
+ * Updates the comments section
+ */
 const refreshComments = async () => {
     try {
         // Use a relative URL to fetch comments.json
@@ -87,6 +94,10 @@ const getImage = async (id, path, tags) => {
     }
 }
 
+/***
+ * Refreshes the image on the page
+ * @param image_id id of image to display
+ */
 const refreshImage = async (image_id) => {
     try {
         // Use a relative URL to fetch images.json
@@ -125,12 +136,12 @@ $("#post-comment-button").click(async () => {
 });
 
 // https://developer.mozilla.org/en-US/docs/web/api/document/cookie
+// Retrieves value from a cookie to grab the image_id of the desired image for display
 const getImageIDCookie = document.cookie
     .split(";")
     .find((row) => row.startsWith("image_id="))?.split("=")[1];
 
 $(document).ready(async () => {
     await refreshComments();
-    //document.cookie = `image_id=3; max-age=7200; path=/`; // establishes the image that should be loaded
     await refreshImage(getImageIDCookie);
 });
