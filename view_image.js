@@ -52,7 +52,7 @@ const refreshComments = async () => {
 
             // Append each comment to the comments section
             for (const commentObj of comments) {
-                if (commentObj.image_id == getImageIDCookie) {
+                if (commentObj.image_id == sessionStorage.getItem("image_id")) {
                     $(".comments").append(`<p style="font-size:20px;"><b>${commentObj.name}:</b> ${commentObj.text}</p>`);
                 }
                 //$("<p>").text("<b>" + commentObj.name + ":</b>" + commentObj.text).appendTo('.comments');
@@ -64,7 +64,7 @@ const refreshComments = async () => {
         console.error("Error occurred while fetching comments:", error);
     }
 };
-
+/*
 const getImage = async (id, path, tags) => {
     const bodyContents = JSON.stringify({
         "id": id,
@@ -93,7 +93,7 @@ const getImage = async (id, path, tags) => {
         console.error("Error occurred while posting comment:", error);
     }
 }
-
+*/
 /***
  * Refreshes the image on the page
  * @param image_id id of image to display
@@ -110,8 +110,6 @@ const refreshImage = async (image_id) => {
             // Load image with specified ID
             for (const img of i) {
                 if (img["id"] == image_id) { // replace 1 with image_id
-                    console.log(img["id"]);
-                    console.log(img.path)
                     $("#page_image").attr("src", img.path);
                 }
             }
@@ -136,11 +134,8 @@ $("#post-comment-button").click(async () => {
 
 // https://developer.mozilla.org/en-US/docs/web/api/document/cookie
 // Retrieves value from a cookie to grab the image_id of the desired image for display
-const getImageIDCookie = document.cookie
-    .split(";")
-    .find((row) => row.startsWith("image_id="))?.split("=")[1];
 
 $(document).ready(async () => {
     await refreshComments();
-    await refreshImage(getImageIDCookie);
+    await refreshImage(sessionStorage.getItem("image_id"));
 });
