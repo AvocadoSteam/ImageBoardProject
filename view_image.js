@@ -2,6 +2,7 @@
 
 const makePost = async (name, contents) => {
     const bodyContents = JSON.stringify({
+        "image_id": getImageIDCookie,
         "name": name,
         "contents": contents
     });
@@ -37,12 +38,14 @@ const refreshComments = async () => {
         if (response.ok) {
             const commentsData = await response.json();
             const comments = commentsData.comments;
+            console.log(comments);
 
             // Clear the existing comments
             $(".comments").empty();
 
             // Append each comment to the comments section
             for (const commentObj of comments) {
+                //if (commentObj.image_id == )
                 $(".comments").append(`<p style="font-size:24px;"><b>${commentObj.name}:</b> ${commentObj.text}</p>`);
                 //$("<p>").text("<b>" + commentObj.name + ":</b>" + commentObj.text).appendTo('.comments');
             }
@@ -93,10 +96,9 @@ const refreshImage = async (image_id) => {
             const i = image.images;
             console.log(i);
 
-
             // Load image with specified ID
             for (const img of i) {
-                if (img["id"] == 1) { // replace 1 with image_id
+                if (img["id"] == image_id) { // replace 1 with image_id
                     console.log(img["id"]);
                     console.log(img.path)
                     $("#page_image").attr("src", img.path);
@@ -121,8 +123,14 @@ $("#post-comment-button").click(async () => {
     }
 });
 
+// https://developer.mozilla.org/en-US/docs/web/api/document/cookie
+const getImageIDCookie = document.cookie
+    .split(";")
+    .find((row) => row.startsWith("image_id="))?.split("=")[1];
 
 $(document).ready(async () => {
     await refreshComments();
-    await refreshImage();
+    console.log(getImageIDCookie);
+    //document.cookie = `image_id=3; max-age=7200; path=/`; // establishes the image that should be loaded
+    await refreshImage(getImageIDCookie);
 });

@@ -105,12 +105,20 @@ http.createServer(async (req, res) => {
         req.on("end", async () => {
             try {
                 const postData = JSON.parse(body);
+
+                // https://developer.mozilla.org/en-US/docs/web/api/document/cookie
+                const getImageIDCookie = document.cookie
+                    .split(";")
+                    .find((row) => row.startsWith("image_id="))?.split("=")[1];
+
                 const userName = postData.name;
                 const comment = postData.contents;
 
                 const { comments } = await getComments();
 
-                comments.push({ name: userName, text: comment });
+                comments.push({ image_id: getImageIDCookie, name: userName, text: comment });
+
+                console.log(comments);
 
                 await saveComments(comments);
 
