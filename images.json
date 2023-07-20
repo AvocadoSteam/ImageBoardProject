@@ -4,27 +4,27 @@
       {
         "id" : 1,
         "path" : "https://rb.gy/1w97z",
-        "tags": ["#cat", "#animal"]
+        "tags": ["cat"]
       },
       {
         "id" : 2,
         "path" : "https://th.bing.com/th?id=OIP.JdjSF7yPa2PodsGvlG0RCQHaE6&w=306&h=203&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2",
-        "tags": ["#cat", "#animal"]
+        "tags": ["cat", "animal"]
       },
       {
         "id" : 3,
         "path" : "https://th.bing.com/th/id/OIP.th5M_XAZwlYVpYLHWkJD0wHaE8?w=300&h=200&c=7&r=0&o=5&pid=1.7",
-        "tags": ["#computer", "#technology"]
+        "tags": ["computer", "technology"]
       },
       {
         "id" : 4,
         "path" : "https://th.bing.com/th/id/R.8c5650a2070648d9dc695b8f4a027671?rik=RbVtbe892imZEA&pid=ImgRaw&r=0",
-        "tags": ["#dog", "#animal"]
+        "tags": ["dog", "animal"]
       },
       {
         "id" : 5,
         "path" : "https://th.bing.com/th/id/OIP.jjJ3IB_Otr3OBm_fgstjVAHaEo?pid=ImgDet&rs=1",
-        "tags": ["#dog", "#animal"]
+        "tags": ["dog", "animal"]
       }
     ]
 }
