@@ -53,7 +53,7 @@ const refreshComments = async () => {
             // Append each comment to the comments section
             for (const commentObj of comments) {
                 if (commentObj.image_id == getImageIDCookie) {
-                    $(".comments").append(`<p style="font-size:24px;"><b>${commentObj.name}:</b> ${commentObj.text}</p>`);
+                    $(".comments").append(`<p style="font-size:20px;"><b>${commentObj.name}:</b> ${commentObj.text}</p>`);
                 }
                 //$("<p>").text("<b>" + commentObj.name + ":</b>" + commentObj.text).appendTo('.comments');
             }
@@ -106,7 +106,6 @@ const refreshImage = async (image_id) => {
         if (response.ok) {
             const image = await response.json();
             const i = image.images;
-            console.log(i);
 
             // Load image with specified ID
             for (const img of i) {

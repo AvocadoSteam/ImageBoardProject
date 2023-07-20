@@ -3,14 +3,14 @@ html, body {
     width: 99.6%;
 }
 .navbar {
-    height: 60px;
+    height: 46px;
     border: 2px solid navy;
     white-space: nowrap;
     background-color: azure;
 }
 .navbar_content {
     display: inline-block;
-    font-size: 30px;
+    font-size: 24px;
     margin: 5px;
 }
 .main_area {
@@ -38,7 +38,7 @@ img {
     vertical-align: middle;
 }
 .comments {
-    height: 100.7%;
+    height: 101%;
     width: 15%;
     border-left: 2px solid navy;
     border-bottom: 2px solid navy;
@@ -48,7 +48,6 @@ img {
     flex-grow: 0.2;
     background-color: aliceblue;
     word-wrap: break-word;
-    font-size: 20px;
 }
 #post-comment-button {
 
