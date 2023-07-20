@@ -43,7 +43,8 @@ const refreshComments = async () => {
 
             // Append each comment to the comments section
             for (const commentObj of comments) {
-                $("<p>").text(commentObj.name + ": " + commentObj.text).appendTo('.comments');
+                $(".comments").append(`<p style="font-size:24px;"><b>${commentObj.name}:</b> ${commentObj.text}</p>`);
+                //$("<p>").text("<b>" + commentObj.name + ":</b>" + commentObj.text).appendTo('.comments');
             }
         } else {
             console.error("Failed to fetch comments:", response.status);

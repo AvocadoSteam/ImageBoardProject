@@ -61,8 +61,6 @@ http.createServer(async (req, res) => {
 
     const p = req.url.split("/");
     console.log(req.url);
-    console.log(p);
-    console.log(p.length);
     if (p[1] === "" || p[1] === "homepage.html") {
         getFile(res, "homepage.html", "text/html");
     }
