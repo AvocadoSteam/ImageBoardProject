@@ -35,4 +35,5 @@ const getTagsAsCookie = JSON.parse(document.cookie
 
 $(document).ready(async () => {
     await loadAllImages(getTagsAsCookie);
+    $("#search_criteria").append(`<b>Tags:</b> <i>${getTagsAsCookie}</i>`);
 });
