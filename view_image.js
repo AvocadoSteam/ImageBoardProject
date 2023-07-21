@@ -7,7 +7,7 @@
  */
 const makePost = async (name, contents) => {
     const bodyContents = JSON.stringify({
-        "image_id": getImageIDCookie,
+        "image_id": sessionStorage.getItem("image_id"),
         "name": name,
         "contents": contents
     });
