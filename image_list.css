@@ -16,43 +16,21 @@ html, body {
 .main_area {
     height: 88%;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-wrap: wrap;
     border: 2px solid navy;
     padding: 4px;
     margin-top: -2px;
 }
-img {
-    max-width: 80%;
-}
 .image {
-    flex-basis: 40%;
-    flex-grow: 1;
-    display: flex;
+    flex: 33%;
+    max-width: 33%;
     align-self: stretch;
     justify-content: space-around;
 }
-.image * {
+.image img {
+    max-width: 80%;
     vertical-align: middle;
-}
-.image_content {
-    display: block;
-    max-width: 30%;
-    max-height: 30%;
-    width: auto;
-    height: auto;
-    overflow: auto;
-    position: relative;
-}
-.comments {
-    height: 101%;
-    width: 15%;
-    border-left: 2px solid navy;
-    padding-left: 10px;
-    margin: -2px;
-    flex-grow: 0.2;
-    background-color: aliceblue;
-    word-wrap: break-word;
+    width: 100%;
 }
 #search_for_tags {
 
