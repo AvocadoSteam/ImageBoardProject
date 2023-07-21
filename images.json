@@ -25,6 +25,16 @@
         "id" : 5,
         "path" : "https://th.bing.com/th/id/OIP.jjJ3IB_Otr3OBm_fgstjVAHaEo?pid=ImgDet&rs=1",
         "tags": ["dog", "animal"]
+      },
+      {
+        "id" : 6,
+        "path" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKLWqF7QIhcZOYH-e37DgvCYZJpxaclzZYOVFQ0lsRBBCVUyPF3fXR4EnolFg0QMC5qho&usqp=CAU",
+        "tags": ["computer", "technology", "monitor"]
+      },
+      {
+        "id" : 7,
+        "path" : "https://www.ctvnews.ca/polopoly_fs/1.6126898.1666833185!/httpImage/image.jpeg_gen/derivatives/landscape_620/image.jpeg",
+        "tags": ["computer", "technology", "monitor"]
       }
     ]
 }
