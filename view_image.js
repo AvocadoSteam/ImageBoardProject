@@ -133,6 +133,7 @@ $("#post-comment-button").click(async () => {
 });
 
 $("#lookup-button").click( async () => {
+
     const tags = $("#topic-id-selection").val().split(" ");
     //const tagsAsCookie = JSON.stringify(tags.split(","));
     const filteredTags = tags.filter((tag) => !tag.trim().startsWith("-"));
