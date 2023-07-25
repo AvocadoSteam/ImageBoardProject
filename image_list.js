@@ -31,6 +31,16 @@ const loadAllImages = async () => {
 
 const getTagsFromStorage = JSON.parse(sessionStorage.getItem("tags"))
 
+$("#lookup-button").click( async () => {
+    const tags = $("#topic-id-selection").val().split(" ");
+    //const tagsAsCookie = JSON.stringify(tags.split(","));
+    const filteredTags = tags.filter((tag) => !tag.trim().startsWith("-"));
+
+    sessionStorage.setItem("tags", JSON.stringify(filteredTags));
+    //document.cookie = `tags=${tagsAsCookie}; max-age=7200; path=/`; // establishes the image that should be loaded
+    location.replace('image_list.html');
+})
+
 $(document).ready(async () => {
     await loadAllImages(getTagsFromStorage);
     $("#search_criteria").append(`<b>Tags:</b> <i>${getTagsFromStorage}</i>`);
