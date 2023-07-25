@@ -8,6 +8,11 @@ const loadAllImages = async () => {
         if (response.ok) {
             const image = await response.json();
             const i = image.images;
+
+
+            if (getTagsFromStorage == "" || getTagsFromStorage == null) {
+                $(".image").append(`<img class="image_content" src="${img.path}">`);
+
             let count = 0;
             console.log(sessionStorage.getItem("tags"));
             if (sessionStorage.getItem("tags") == '[""]' || sessionStorage.getItem("tags") == null) {
@@ -25,6 +30,7 @@ const loadAllImages = async () => {
                         count = 0;
                     }
                 }
+
             }
             else {
                 for (const img of i) {
@@ -53,11 +59,14 @@ const loadAllImages = async () => {
         console.log("Error retrieving images: ", error);
     }
 }
+
+
 /*
 const getTagsFromStorage = JSON.parse(document.cookie
     .split(";")
     .find((row) => row.startsWith(" tags="))?.split("=")[1]);
 */
+
 const getTagsFromStorage = JSON.parse(sessionStorage.getItem("tags"))
 
 $(document).ready(async () => {
