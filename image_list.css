@@ -17,13 +17,15 @@ html, body {
     height: 88%;
     display: flex;
     flex-wrap: wrap;
+
     align-items: center;
-    justify-content: center;
+
     border: 2px solid navy;
     padding: 4px;
     margin-top: -2px;
     overflow: hidden;
 }
+
 img {
     max-width: 80%;
     vertical-align: middle;
@@ -32,11 +34,18 @@ img {
 
     flex: 75%;
 
+
+.image {
+    flex: 33%;
+    max-width: 33%;
+
     align-self: stretch;
     justify-content: space-around;
 }
-.image * {
+.image img {
+    max-width: 80%;
     vertical-align: middle;
+
 }
 .image_content {
     display: block;
@@ -57,6 +66,9 @@ img {
     flex-grow: 0.2;
     background-color: aliceblue;
     word-wrap: break-word;
+
+    width: 100%;
+
 }
 #search_for_tags {
 
