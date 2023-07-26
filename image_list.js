@@ -82,7 +82,7 @@ const getTagsFromStorage = JSON.parse(document.cookie
     .split(";")
     .find((row) => row.startsWith(" tags="))?.split("=")[1]);
 */
-const getTagsFromStorage = JSON.parse(sessionStorage.getItem("tags"))
+// const getTagsFromStorage = JSON.parse(sessionStorage.getItem("tags"))
 
 $(document).ready(async () => {
     await loadAllImages(getTagsFromStorage);
