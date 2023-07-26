@@ -3,14 +3,14 @@ html, body {
     width: 99.6%;
 }
 .navbar {
-    height: 46px;
+    height: 40px;
     border: 2px solid navy;
     white-space: nowrap;
     background-color: azure;
 }
 .navbar_content {
     display: inline-block;
-    font-size: 24px;
+    font-size: 20px;
     margin: 5px;
 }
 .main_area {
