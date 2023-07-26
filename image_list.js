@@ -55,7 +55,7 @@ const loadAllImages = async () => {
         } else {
             console.error("Failed to fetch comments:", response.status);
         }
-    } catch (error) {
+    } catch (error); {
         console.log("Error retrieving images: ", error);
     }
 }
@@ -87,4 +87,4 @@ const getTagsFromStorage = JSON.parse(document.cookie
 $(document).ready(async () => {
     await loadAllImages(getTagsFromStorage);
     $("#search_criteria").append(`<b>Tags:</b> <i>${getTagsFromStorage}</i>`);
-});
+})};
