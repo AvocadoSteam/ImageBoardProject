@@ -15,24 +15,24 @@ const loadAllImages = async () => {
                 // Check if the image matches the search criteria (tagsToSearch)
                 if (doesImageMatchSearch(img.tags, tagsToSearch)) {
                     if (count === 0) {
-                        $("#one").append(`<img src="${img.path}">`);
+                        $("#one").append(`<img class="image_content" src="${img.path}" id="${img.id}">`);
                         count++;
                     } else if (count === 1) {
-                        $("#two").append(`<img src="${img.path}">`);
+                        $("#two").append(`<img class="image_content" src="${img.path}" id="${img.id}">`);
                         count++;
                     } else if (count === 2) {
-                        $("#three").append(`<img src="${img.path}">`);
+                        $("#three").append(`<img class="image_content" src="${img.path}" id="${img.id}">`);
                         count = 0;
                     }
                 } else if (sessionStorage.getItem("tags") == '[""]' || sessionStorage.getItem("tags") == null) {
                     if (count == 0) {
-                        $("#one").append(`<img src="${img.path}">`);
+                        $("#one").append(`<img class="image_content" src="${img.path}" id="${img.id}">`);
                         count++;
                     } else if (count == 1) {
-                        $("#two").append(`<img src="${img.path}">`);
+                        $("#two").append(`<img class="image_content" src="${img.path}" id="${img.id}">`);
                         count++;
                     } else if (count == 2) {
-                        $("#three").append(`<img src="${img.path}">`);
+                        $("#three").append(`<img class="image_content" src="${img.path}" id="${img.id}">`);
                         count = 0;
                     }
                 }
@@ -83,4 +83,11 @@ $(document).ready(async () => {
     await loadAllImages();
     const tagsToSearch = getTagsFromStorage().join(", ");
     $("#search_criteria").append(`<b>Tags:</b> <i>${tagsToSearch}</i>`);
+
+    $(".image_content").click(async (e) => {
+        let image_id = e.target.id;
+        sessionStorage.clear();
+        sessionStorage.setItem("image_id", image_id);
+        location.replace("view_image.html");
+    })
 });
