@@ -14,7 +14,7 @@
       {
         "id" : 3,
         "path" : "https://th.bing.com/th/id/OIP.th5M_XAZwlYVpYLHWkJD0wHaE8?w=300&h=200&c=7&r=0&o=5&pid=1.7",
-        "tags": ["computer", "technology"]
+        "tags": ["computer", "technology", "pc", "monitor"]
       },
       {
         "id" : 4,
@@ -35,6 +35,11 @@
         "id" : 7,
         "path" : "https://www.ctvnews.ca/polopoly_fs/1.6126898.1666833185!/httpImage/image.jpeg_gen/derivatives/landscape_620/image.jpeg",
         "tags": ["computer", "technology", "monitor"]
+      },
+      {
+        "id" : 8,
+        "path" : "https://img.freepik.com/free-vector/set-wild-animals_1308-29055.jpg?w=2000",
+        "tags": ["animal"]
       }
     ]
 }
