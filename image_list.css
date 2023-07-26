@@ -17,9 +17,15 @@ html, body {
     height: 88%;
     display: flex;
     flex-wrap: wrap;
+
     border: 2px solid navy;
     padding: 4px;
     margin-top: -2px;
+}
+
+img {
+    max-width: 80%;
+    vertical-align: middle;
 }
 .image {
     flex: 33%;
@@ -30,7 +36,27 @@ html, body {
 .image img {
     max-width: 80%;
     vertical-align: middle;
-    width: 100%;
+
+}
+.image_content {
+    display: block;
+    max-width: 30%;
+    max-height: 30%;
+    width: auto;
+    height: auto;
+    overflow: auto;
+    position: relative;
+}
+
+.comments {
+    height: 101%;
+    width: 15%;
+    border-left: 2px solid navy;
+    padding-left: 10px;
+    margin: -2px;
+    flex-grow: 0.2;
+    background-color: aliceblue;
+    word-wrap: break-word;
 }
 #search_for_tags {
 
