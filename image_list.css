@@ -17,7 +17,6 @@ html, body {
     height: 88%;
     display: flex;
     flex-wrap: wrap;
-
     border: 2px solid navy;
     padding: 4px;
     margin-top: -2px;
@@ -46,17 +45,7 @@ img {
     height: auto;
     overflow: auto;
     position: relative;
-}
-
-.comments {
-    height: 101%;
-    width: 15%;
-    border-left: 2px solid navy;
-    padding-left: 10px;
-    margin: -2px;
-    flex-grow: 0.2;
-    background-color: aliceblue;
-    word-wrap: break-word;
+    cursor: pointer;
 }
 #search_for_tags {
 

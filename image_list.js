@@ -13,17 +13,18 @@ const loadAllImages = async () => {
             if (sessionStorage.getItem("tags") == '[""]' || sessionStorage.getItem("tags") == null) {
                 for (const img of i) {
                     if (count == 0) {
-                        $("#one").append(`<img src="${img.path}">`);
+                        $("#one").append(`<img class="image_content" src="${img.path}" id="${img.id}">`);
                         count++;
                     }
                     else if (count == 1) {
-                        $("#two").append(`<img src="${img.path}">`);
+                        $("#two").append(`<img class="image_content" src="${img.path}" id="${img.id}">`);
                         count++;
                     }
                     else if (count == 2) {
-                        $("#three").append(`<img src="${img.path}">`);
+                        $("#three").append(`<img class="image_content" src="${img.path}" id="${img.id}">`);
                         count = 0;
                     }
+                    console.log(img.id);
                 }
             }
             else {
@@ -62,15 +63,18 @@ $("#lookup-button").click( async () => {
     sessionStorage.setItem("tags", JSON.stringify(filteredTags));
     //document.cookie = `tags=${tagsAsCookie}; max-age=7200; path=/`; // establishes the image that should be loaded
     location.replace('image_list.html');
-})
-/*
-const getTagsFromStorage = JSON.parse(document.cookie
-    .split(";")
-    .find((row) => row.startsWith(" tags="))?.split("=")[1]);
-*/
+});
+
 const getTagsFromStorage = JSON.parse(sessionStorage.getItem("tags"))
 
 $(document).ready(async () => {
     await loadAllImages(getTagsFromStorage);
     $("#search_criteria").append(`<b>Tags:</b> <i>${getTagsFromStorage}</i>`);
+
+    $(".image_content").click(async (e) => {
+        let image_id = e.target.id;
+        sessionStorage.clear();
+        sessionStorage.setItem("image_id", image_id);
+        location.replace("view_image.html");
+    })
 });
