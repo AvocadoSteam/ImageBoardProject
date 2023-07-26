@@ -64,36 +64,7 @@ const refreshComments = async () => {
         console.error("Error occurred while fetching comments:", error);
     }
 };
-/*
-const getImage = async (id, path, tags) => {
-    const bodyContents = JSON.stringify({
-        "id": id,
-        "path": path,
-        "tags": [tags]
-    });
-    try {
-        const response = await fetch("http://localhost:8080/view_image.js", {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: "GET",
-            body: bodyContents
-        });
 
-        if (response.ok) {
-            // If the response is successful, refresh the comments section to display the updated comments
-            await refreshImage();
-        } else {
-            // Handle errors if the response is not successful
-            console.error("Failed to post comment:", response.status);
-        }
-    } catch (error) {
-        // Handle any other errors that may occur during the POST request
-        console.error("Error occurred while posting comment:", error);
-    }
-}
-*/
 /***
  * Refreshes the image on the page
  * @param image_id id of image to display
@@ -141,9 +112,6 @@ $("#lookup-button").click( async () => {
     //document.cookie = `tags=${tagsAsCookie}; max-age=7200; path=/`; // establishes the image that should be loaded
     location.replace('image_list.html');
 })
-
-// https://developer.mozilla.org/en-US/docs/web/api/document/cookie
-// Retrieves value from a cookie to grab the image_id of the desired image for display
 
 $(document).ready(async () => {
     await refreshComments();
