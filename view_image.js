@@ -106,7 +106,7 @@ $("#post-comment-button").click(async () => {
 $("#lookup-button").click( async () => {
     const tags = $("#topic-id-selection").val().split(" ");
     //const tagsAsCookie = JSON.stringify(tags.split(","));
-    const filteredTags = tags.filter((tag) => !tag.trim().startsWith("-"));
+    const filteredTags = tags.map(tag => tag.trim().toLowerCase());
 
     sessionStorage.setItem("tags", JSON.stringify(filteredTags));
     //document.cookie = `tags=${tagsAsCookie}; max-age=7200; path=/`; // establishes the image that should be loaded
