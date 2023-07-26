@@ -6,25 +6,14 @@ const loadAllImages = async () => {
         const response = await fetch("/images.json");
 
         if (response.ok) {
-            const image = await response.json();
-            const i = image.images;
-            let count = 0;
+            const imageData = await response.json();
+            const images = imageData.images;
             const tagsToSearch = getTagsFromStorage();
-            console.log(sessionStorage.getItem("tags"));
-            //if (sessionStorage.getItem("tags") == '[""]' || sessionStorage.getItem("tags") == null) {
-            for (const img of i) {
-                if (sessionStorage.getItem("tags") == '[""]' || sessionStorage.getItem("tags") == null) {
-                    if (count == 0) {
-                        $("#one").append(`<img src="${img.path}">`);
-                        count++;
-                    } else if (count == 1) {
-                        $("#two").append(`<img src="${img.path}">`);
-                        count++;
-                    } else if (count == 2) {
-                        $("#three").append(`<img src="${img.path}">`);
-                        count = 0;
-                    }
-                } else if (doesImageMatchSearch(img.tags, tagsToSearch)) {
+
+            let count = 0;
+            for (const img of images) {
+                // Check if the image matches the search criteria (tagsToSearch)
+                if (doesImageMatchSearch(img.tags, tagsToSearch)) {
                     if (count === 0) {
                         $("#one").append(`<img src="${img.path}">`);
                         count++;
@@ -35,15 +24,26 @@ const loadAllImages = async () => {
                         $("#three").append(`<img src="${img.path}">`);
                         count = 0;
                     }
+                } else if (sessionStorage.getItem("tags") == '[""]' || sessionStorage.getItem("tags") == null) {
+                    if (count == 0) {
+                        $("#one").append(`<img src="${img.path}">`);
+                        count++;
+                    } else if (count == 1) {
+                        $("#two").append(`<img src="${img.path}">`);
+                        count++;
+                    } else if (count == 2) {
+                        $("#three").append(`<img src="${img.path}">`);
+                        count = 0;
+                    }
                 }
             }
-        } else {
-            console.error("Failed to fetch comments:", response.status);
+        }else {
+            console.error("Failed to fetch images:", response.status);
         }
     } catch (error) {
         console.log("Error retrieving images: ", error);
     }
-}
+};
 
 const getTagsFromStorage = () => {
     const tags = sessionStorage.getItem("tags");
@@ -72,20 +72,12 @@ const doesImageMatchSearch = (imageTags, searchTags) => {
 };
 
 $("#lookup-button").click(async () => {
-    const tags = $("#topic-id-selection").val().split(" ").map(tag => tag.trim());
-    //const tagsAsCookie = JSON.stringify(tags.split(","));
-    const filteredTags = tags.filter((tag) => tag && !tag.startsWith("-"));
+    const tags = $("#topic-id-selection").val().split(" ");
+    const filteredTags = tags.map(tag => tag.trim().toLowerCase());
 
     sessionStorage.setItem("tags", JSON.stringify(filteredTags));
-    //document.cookie = `tags=${tagsAsCookie}; max-age=7200; path=/`; // establishes the image that should be loaded
     location.replace('image_list.html');
-})
-/*
-const getTagsFromStorage = JSON.parse(document.cookie
-    .split(";")
-    .find((row) => row.startsWith(" tags="))?.split("=")[1]);
-*/
-
+});
 
 $(document).ready(async () => {
     await loadAllImages();
