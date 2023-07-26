@@ -8,12 +8,6 @@ const loadAllImages = async () => {
         if (response.ok) {
             const image = await response.json();
             const i = image.images;
-
-
-
-            if (getTagsFromStorage == "" || getTagsFromStorage == null) {
-                $(".image").append(`<img class="image_content" src="${img.path}">`);
-
             let count = 0;
             console.log(sessionStorage.getItem("tags"));
             if (sessionStorage.getItem("tags") == '[""]' || sessionStorage.getItem("tags") == null) {
@@ -60,14 +54,6 @@ const loadAllImages = async () => {
     }
 }
 
-
-/*
-const getTagsFromStorage = JSON.parse(document.cookie
-    .split(";")
-    .find((row) => row.startsWith(" tags="))?.split("=")[1]);
-*/
-
-const getTagsFromStorage = JSON.parse(sessionStorage.getItem("tags"))
 $("#lookup-button").click( async () => {
     const tags = $("#topic-id-selection").val().split(" ");
     //const tagsAsCookie = JSON.stringify(tags.split(","));
