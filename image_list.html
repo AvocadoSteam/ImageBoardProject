@@ -8,9 +8,9 @@
 <body>
     <div class="navbar">
         <!-- Returns to previous page -->
-        <button onClick="location.replace('homepage.html');" class="navbar_content" style="float:left;">Go Back</button>
-        <input type="button" id="search_for_tags" class="navbar_content" value="Search"></inputbutton> <!-- Calls a search on all user entered tags -->
-        <input type="text" class="navbar_content" type="text"> <!-- Add to user tags when enter is clicked -->
+        <button onClick="location.replace('homepage.html');" class="navbar_content" >Go Back</button>
+        <input type="button" id="lookup-button" value="Search" class="navbar_content"> <!-- Calls a search on all user entered tags -->
+        <input type="text" name="Topic" id="topic-id-selection" placeholder="Enter tags separated by commas" class="navbar_content"style="width:40%;"> <!-- Add to user tags when enter is clicked -->
         <!-- List of user entered tags -->
         <p class="navbar_content" id="search_criteria"></p>
     </div>

@@ -132,6 +132,16 @@ $("#post-comment-button").click(async () => {
     }
 });
 
+$("#lookup-button").click( async () => {
+    const tags = $("#topic-id-selection").val().split(" ");
+    //const tagsAsCookie = JSON.stringify(tags.split(","));
+    const filteredTags = tags.filter((tag) => !tag.trim().startsWith("-"));
+
+    sessionStorage.setItem("tags", JSON.stringify(filteredTags));
+    //document.cookie = `tags=${tagsAsCookie}; max-age=7200; path=/`; // establishes the image that should be loaded
+    location.replace('image_list.html');
+})
+
 // https://developer.mozilla.org/en-US/docs/web/api/document/cookie
 // Retrieves value from a cookie to grab the image_id of the desired image for display
 
