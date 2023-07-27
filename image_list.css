@@ -47,6 +47,18 @@ img {
     position: relative;
     cursor: pointer;
 }
+.add_image_popup {
+
+}
+.add_image_container {
+
+}
+#image_path {
+
+}
+#add_image {
+
+}
 #search_for_tags {
 
 }
@@ -56,3 +68,4 @@ img {
 #search_criteria {
 
 }
+

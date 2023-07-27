@@ -12,6 +12,8 @@ const loadAllImages = async () => {
 
             let count = 0;
             for (const img of images) {
+                console.log(images.length - 1)
+                console.log(img.id);
                 // Check if the image matches the search criteria (tagsToSearch)
                 if (doesImageMatchSearch(img.tags, tagsToSearch)) {
                     if (count === 0) {
@@ -24,7 +26,8 @@ const loadAllImages = async () => {
                         $("#three").append(`<img class="image_content" src="${img.path}" id="${img.id}">`);
                         count = 0;
                     }
-                } else if (sessionStorage.getItem("tags") == '[""]' || sessionStorage.getItem("tags") == null) {
+                }
+                else if (sessionStorage.getItem("tags") == '[""]' || sessionStorage.getItem("tags") == null) {
                     if (count == 0) {
                         $("#one").append(`<img class="image_content" src="${img.path}" id="${img.id}">`);
                         count++;
@@ -36,12 +39,38 @@ const loadAllImages = async () => {
                         count = 0;
                     }
                 }
+                if (img.id == images.length) {
+                    sessionStorage.setItem("largest_id", img.id);
+                }
             }
-        }else {
+        } else {
             console.error("Failed to fetch images:", response.status);
         }
     } catch (error) {
-        console.log("Error retrieving images: ", error);
+        console.error("Error retrieving images: ", error);
+    }
+};
+
+const addNewImage = async (path, tags) => {
+    const iFrame = document.createElement("IFRAME");
+
+    const bodyContents = JSON.stringify({
+        "id": sessionStorage.getItem("largest_id")+1,
+        "path": path,
+        "tags": tags
+    });
+    try {
+        const response = await fetch("http://localhost:8080/image_list.js", {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: bodyContents
+        });
+        response.ok ? await loadAllImages() : console.error("Failed to add image: ", response.status);
+    } catch (error) {
+        console.error("Error adding new image: ", error);
     }
 };
 
@@ -89,5 +118,11 @@ $(document).ready(async () => {
         sessionStorage.clear();
         sessionStorage.setItem("image_id", image_id);
         location.replace("view_image.html");
-    })
+    });
+
+    $("#add_image").click(async () => {
+        // Opens a window
+        window.open('/add_post.html','','height=200,width=200,resizeable');
+    });
+
 });

@@ -20,14 +20,17 @@ const makePost = async (name, contents) => {
             method: "POST",
             body: bodyContents
         });
-
+        response.ok ? await refreshComments() :  console.error("Failed to post comment:", response.status);
+        /*
         if (response.ok) {
             // If the response is successful, refresh the comments section to display the updated comments
             await refreshComments();
-        } else {
+        }
+        else {
             // Handle errors if the response is not successful
             console.error("Failed to post comment:", response.status);
         }
+         */
     } catch (error) {
         // Handle any other errors that may occur during the POST request
         console.error("Error occurred while posting comment:", error);
