@@ -52,15 +52,15 @@ const loadAllImages = async () => {
 };
 
 const addNewImage = async (path, tags) => {
-    const iFrame = document.createElement("IFRAME");
-
+    const new_id = parseInt(sessionStorage.getItem("largest_id")) + 1;
     const bodyContents = JSON.stringify({
-        "id": sessionStorage.getItem("largest_id")+1,
+        "id": '' + new_id,
         "path": path,
-        "tags": tags
+        "tags": tags.split(" ")
     });
+    console.log(bodyContents);
     try {
-        const response = await fetch("http://localhost:8080/image_list.js", {
+        const response = await fetch("/images.json", {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -69,7 +69,9 @@ const addNewImage = async (path, tags) => {
             body: bodyContents
         });
         response.ok ? await loadAllImages() : console.error("Failed to add image: ", response.status);
-    } catch (error) {
+        console.log(response.status);
+    }
+    catch (error) {
         console.error("Error adding new image: ", error);
     }
 };
@@ -86,7 +88,8 @@ const doesImageMatchSearch = (imageTags, searchTags) => {
     searchTags.forEach(tag => {
         if (tag.startsWith("-")) {
             excludedTags.push(tag.substring(1));
-        } else {
+        }
+        else {
             includedTags.push(tag);
         }
     });
@@ -113,16 +116,22 @@ $(document).ready(async () => {
     const tagsToSearch = getTagsFromStorage().join(", ");
     $("#search_criteria").append(`<b>Tags:</b> <i>${tagsToSearch}</i>`);
 
+    $("#add_image").click(async () => {
+        // Opens a window
+        try {
+            const image_link = $("#image_link").val();
+            const image_tags = $("#image_tags").val();
+            await addNewImage(image_link, image_tags);
+        }
+        catch (error) {
+            console.error("Image failed to post: ", error);
+        }
+    });
+
     $(".image_content").click(async (e) => {
         let image_id = e.target.id;
         sessionStorage.clear();
         sessionStorage.setItem("image_id", image_id);
         location.replace("view_image.html");
     });
-
-    $("#add_image").click(async () => {
-        // Opens a window
-        window.open('/add_post.html','','height=200,width=200,resizeable');
-    });
-
 });

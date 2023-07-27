@@ -72,7 +72,7 @@ http.createServer(async (req, res) => {
     if (p[1] === "" || p[1] === "homepage.html") {
         await getFile(res, "homepage.html", "text/html");
     }
-    else if (p[1] === "image_list.html" || p[1] === "view_image.html" || p[1] === "add_post.html") {
+    else if (p[1] === "image_list.html" || p[1] === "view_image.html") {
         await getFile(res, p[1], "text/html");
     }
     else if (p[1] === "homepage.css" || p[1] === "image_list.css" || p[1] === "view_image.css") {
@@ -140,14 +140,16 @@ http.createServer(async (req, res) => {
         req.on("end", async () => {
             try {
                 const imageData = JSON.parse(body);
-                const id = imageData.id;
-                const path = imageData.path;
-                const tags = imageData.tags;
+                const image_id = imageData.id;
+                const link = imageData.path;
+                const image_tags = imageData.tags;
+                console.log(imageData);
 
                 const { image } = await getImages();
-                image.push({ id: id, path: path, tags: tags} );
-                console.log(image);
-                await addImage();
+                console.log(image_id);
+                console.log(link);
+                console.log(image_tags);
+                image.push({ id: image_id, path: link, tags: image_tags} );
 
                 res.writeHead(200, { "Content-Type": "application/json" });
                 res.end(JSON.stringify({ status: "success", message: "Comment posted successfully" }));
