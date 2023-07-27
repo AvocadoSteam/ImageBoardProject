@@ -52,16 +52,26 @@ const getImages = async () => {
         const content = await fs.readFile("images.json");
         return JSON.parse(content);
     } catch (error) {
-        console.error("Error reading comments:", error);
+        console.error("Error getting Images:", error);
         return { images: [] };
     }
 }
 
 const addImage = async (image_data) => {
     try {
-        await fs.writeFile("comments.json", JSON.stringify({ image_data }));
-    } catch(error) {
+        const { images } = await getImages(); // Read the existing images from the file
+        images.push(image_data); // Add the new image data to the existing images
+        await saveImages(images); // Save the updated images to the file
+    } catch (error) {
         console.error("Error adding image: ", error);
+    }
+}
+
+const saveImages = async (images) => {
+    try {
+        await fs.writeFile("images.json", JSON.stringify({ images }));
+    } catch (error) {
+        console.error("Error saving images:", error);
     }
 }
 
@@ -132,7 +142,7 @@ http.createServer(async (req, res) => {
     }
 
     // POST IMAGE
-    if (req.method === "POST" && p[1] === "image_list.js") {
+    if (req.method === "POST" && p[1] === "add_image") {
         let body = "";
         req.on("data", (chunk) => {
             body += chunk;
@@ -145,14 +155,12 @@ http.createServer(async (req, res) => {
                 const image_tags = imageData.tags;
                 console.log(imageData);
 
-                const { image } = await getImages();
-                console.log(image_id);
-                console.log(link);
-                console.log(image_tags);
-                image.push({ id: image_id, path: link, tags: image_tags} );
+                const newImageData = { id: image_id, path: link, tags: image_tags };
+
+                await addImage(newImageData); // Call the function with the new image data
 
                 res.writeHead(200, { "Content-Type": "application/json" });
-                res.end(JSON.stringify({ status: "success", message: "Comment posted successfully" }));
+                res.end(JSON.stringify({ status: "success", message: "Image added successfully" }));
 
             } catch (error) {
                 console.error("Error occurred while processing POST request:", error);

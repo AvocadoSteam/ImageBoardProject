@@ -52,15 +52,15 @@ const loadAllImages = async () => {
 };
 
 const addNewImage = async (path, tags) => {
-    const new_id = parseInt(sessionStorage.getItem("largest_id")) + 1;
+    const new_id = parseInt(sessionStorage.getItem("largest_id")) + 1; // Generate a new image ID
     const bodyContents = JSON.stringify({
         "id": '' + new_id,
         "path": path,
-        "tags": tags.split(" ")
+        "tags": tags.split(" ") // Convert the tags string to an array of tags
     });
-    console.log(bodyContents);
+
     try {
-        const response = await fetch("/images.json", {
+        const response = await fetch("add_image", {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -68,13 +68,19 @@ const addNewImage = async (path, tags) => {
             method: "POST",
             body: bodyContents
         });
-        response.ok ? await loadAllImages() : console.error("Failed to add image: ", response.status);
-        console.log(response.status);
-    }
-    catch (error) {
+
+        // Check if the image was successfully added
+        if (response.ok) {
+            location.reload(); // Refresh the image list after adding the new image
+            console.log("Image added successfully!");
+        } else {
+            console.error("Failed to add image: ", response.status);
+        }
+    } catch (error) {
         console.error("Error adding new image: ", error);
     }
 };
+
 
 const getTagsFromStorage = () => {
     const tags = sessionStorage.getItem("tags");
@@ -112,7 +118,6 @@ $("#lookup-button").click(async () => {
 });
 
 $(document).ready(async () => {
-    await loadAllImages();
     const tagsToSearch = getTagsFromStorage().join(", ");
     $("#search_criteria").append(`<b>Tags:</b> <i>${tagsToSearch}</i>`);
 
@@ -134,4 +139,5 @@ $(document).ready(async () => {
         sessionStorage.setItem("image_id", image_id);
         location.replace("view_image.html");
     });
+    await loadAllImages();
 });
