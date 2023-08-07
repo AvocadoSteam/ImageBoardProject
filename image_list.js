@@ -52,7 +52,15 @@ const loadAllImages = async () => {
 };
 
 const addNewImage = async (path, tags) => {
-    const new_id = parseInt(sessionStorage.getItem("largest_id")) + 1; // Generate a new image ID
+    let new_id;
+    if (isNaN(parseInt(sessionStorage.getItem("largest_id")))) {
+        sessionStorage.setItem("largest_id", "1")
+        new_id = parseInt(sessionStorage.getItem("largest_id"))
+    }
+    else {
+        new_id = parseInt(sessionStorage.getItem("largest_id")) + 1
+    }
+
     const bodyContents = JSON.stringify({
         "id": '' + new_id,
         "path": path,
@@ -70,12 +78,8 @@ const addNewImage = async (path, tags) => {
         });
 
         // Check if the image was successfully added
-        if (response.ok) {
-            location.reload(); // Refresh the image list after adding the new image
-            console.log("Image added successfully!");
-        } else {
-            console.error("Failed to add image: ", response.status);
-        }
+        response.ok ? await loadAllImages() : console.error("Failed to add image: ", response.status);
+
     } catch (error) {
         console.error("Error adding new image: ", error);
     }
@@ -127,13 +131,14 @@ $(document).ready(async () => {
             const image_link = $("#image_link").val();
             const image_tags = $("#image_tags").val();
             await addNewImage(image_link, image_tags);
+            await location.reload();
         }
         catch (error) {
             console.error("Image failed to post: ", error);
         }
     });
 
-    $(".image_content").click(async (e) => {
+    $(".main_area").on("click",".image_content",async (e) => {
         let image_id = e.target.id;
         sessionStorage.clear();
         sessionStorage.setItem("image_id", image_id);

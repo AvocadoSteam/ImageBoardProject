@@ -4,7 +4,7 @@ $(document).ready(async () => {
     sessionStorage.setItem("add_image", "true");
     // Creates a cookie to let view_image know which image_id is being accessed
     $("#image_id_button").click( async () => {
-        sessionStorage.setItem("image_id", $("#image_id_text").val())//document.cookie = `image_id=${image_id}; max-age=7200; path=/`; // establishes the image that should be loaded
+        sessionStorage.setItem("image_id", $("#image_id_text").val())
         location.replace('view_image.html');
     });
     $("#lookup-button").click( async () => {
