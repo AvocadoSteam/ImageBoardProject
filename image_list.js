@@ -6,6 +6,7 @@ const loadAllImages = async () => {
         const response = await fetch("/images.json");
 
         if (response.ok) {
+            console.log(response);
             const imageData = await response.json();
             const images = imageData.images;
             const tagsToSearch = getTagsFromStorage();
