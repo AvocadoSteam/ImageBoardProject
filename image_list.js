@@ -53,7 +53,15 @@ const loadAllImages = async () => {
 };
 
 const addNewImage = async (path, tags) => {
-    const new_id = parseInt(sessionStorage.getItem("largest_id")) + 1;
+    let new_id;
+    if (isNaN(parseInt(sessionStorage.getItem("largest_id")))) {
+        sessionStorage.setItem("largest_id", "1")
+        new_id = parseInt(sessionStorage.getItem("largest_id"))
+    }
+    else {
+        new_id = parseInt(sessionStorage.getItem("largest_id")) + 1
+    }
+
     const bodyContents = JSON.stringify({
         "id": '' + new_id,
         "path": path,
