@@ -113,7 +113,6 @@ $("#lookup-button").click(async () => {
 });
 
 $(document).ready(async () => {
-    await loadAllImages();
     const tagsToSearch = getTagsFromStorage().join(", ");
     $("#search_criteria").append(`<b>Tags:</b> <i>${tagsToSearch}</i>`);
 
@@ -129,10 +128,11 @@ $(document).ready(async () => {
         }
     });
 
-    $(".image_content").click(async (e) => {
+    $(".main_area").on("click", ".image_content", async (e) => {
         let image_id = e.target.id;
         sessionStorage.clear();
         sessionStorage.setItem("image_id", image_id);
         location.replace("view_image.html");
     });
+    await loadAllImages();
 });
