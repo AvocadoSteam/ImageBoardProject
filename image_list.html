@@ -10,9 +10,14 @@
         <!-- Returns to previous page -->
         <button onClick="location.replace('homepage.html');" class="navbar_content" >Go Back</button>
         <input type="button" id="lookup-button" value="Search" class="navbar_content"> <!-- Calls a search on all user entered tags -->
-        <input type="text" name="Topic" id="topic-id-selection" placeholder="Enter tags separated by commas" class="navbar_content"style="width:40%;"> <!-- Add to user tags when enter is clicked -->
+        <input type="text" name="Topic" id="topic-id-selection" placeholder="Enter tags separated by spaces" class="navbar_content"style="width:25%;"> <!-- Add to user tags when enter is clicked -->
         <!-- List of user entered tags -->
         <p class="navbar_content" id="search_criteria"></p>
+        <form action="" method="GET" style="float:right;">
+            <input type="text" class="navbar_content" placeholder="Enter image link..." id="image_link">
+            <input type="text" class="navbar_content" placeholder="Enter tags..." id="image_tags">
+            <input type="button" class="navbar_content" value="Add Image"  id="add_image">
+        </form>
     </div>
 
     <div class="main_area">

@@ -20,14 +20,7 @@ const makePost = async (name, contents) => {
             method: "POST",
             body: bodyContents
         });
-
-        if (response.ok) {
-            // If the response is successful, refresh the comments section to display the updated comments
-            await refreshComments();
-        } else {
-            // Handle errors if the response is not successful
-            console.error("Failed to post comment:", response.status);
-        }
+        response.ok ? await refreshComments() :  console.error("Failed to post comment:", response.status);
     } catch (error) {
         // Handle any other errors that may occur during the POST request
         console.error("Error occurred while posting comment:", error);
@@ -55,7 +48,6 @@ const refreshComments = async () => {
                 if (commentObj.image_id == sessionStorage.getItem("image_id")) {
                     $(".comments").append(`<p style="font-size:20px;"><b>${commentObj.name}:</b> ${commentObj.text}</p>`);
                 }
-                //$("<p>").text("<b>" + commentObj.name + ":</b>" + commentObj.text).appendTo('.comments');
             }
         } else {
             console.error("Failed to fetch comments:", response.status);
@@ -105,11 +97,10 @@ $("#post-comment-button").click(async () => {
 
 $("#lookup-button").click( async () => {
     const tags = $("#topic-id-selection").val().split(" ");
-    //const tagsAsCookie = JSON.stringify(tags.split(","));
     const filteredTags = tags.map(tag => tag.trim().toLowerCase());
 
     sessionStorage.setItem("tags", JSON.stringify(filteredTags));
-    //document.cookie = `tags=${tagsAsCookie}; max-age=7200; path=/`; // establishes the image that should be loaded
+    // establishes the image that should be loaded
     location.replace('image_list.html');
 })
 

@@ -20,6 +20,7 @@ html, body {
     border: 2px solid navy;
     padding: 4px;
     margin-top: -2px;
+    overflow-y: scroll; height:900px;
 }
 
 img {
@@ -47,6 +48,18 @@ img {
     position: relative;
     cursor: pointer;
 }
+.add_image_popup {
+
+}
+.add_image_container {
+
+}
+#image_path {
+
+}
+#add_image {
+
+}
 #search_for_tags {
 
 }
@@ -56,3 +69,4 @@ img {
 #search_criteria {
 
 }
+

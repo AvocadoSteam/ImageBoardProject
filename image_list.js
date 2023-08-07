@@ -12,6 +12,8 @@ const loadAllImages = async () => {
 
             let count = 0;
             for (const img of images) {
+                console.log(images.length - 1)
+                console.log(img.id);
                 // Check if the image matches the search criteria (tagsToSearch)
                 if (doesImageMatchSearch(img.tags, tagsToSearch)) {
                     if (count === 0) {
@@ -24,7 +26,8 @@ const loadAllImages = async () => {
                         $("#three").append(`<img class="image_content" src="${img.path}" id="${img.id}">`);
                         count = 0;
                     }
-                } else if (sessionStorage.getItem("tags") == '[""]' || sessionStorage.getItem("tags") == null) {
+                }
+                else if (sessionStorage.getItem("tags") == '[""]' || sessionStorage.getItem("tags") == null) {
                     if (count == 0) {
                         $("#one").append(`<img class="image_content" src="${img.path}" id="${img.id}">`);
                         count++;
@@ -36,14 +39,52 @@ const loadAllImages = async () => {
                         count = 0;
                     }
                 }
+                if (img.id == images.length) {
+                    sessionStorage.setItem("largest_id", img.id);
+                }
             }
-        }else {
+        } else {
             console.error("Failed to fetch images:", response.status);
         }
     } catch (error) {
-        console.log("Error retrieving images: ", error);
+        console.error("Error retrieving images: ", error);
     }
 };
+
+const addNewImage = async (path, tags) => {
+    let new_id;
+    if (isNaN(parseInt(sessionStorage.getItem("largest_id")))) {
+        sessionStorage.setItem("largest_id", "1")
+        new_id = parseInt(sessionStorage.getItem("largest_id"))
+    }
+    else {
+        new_id = parseInt(sessionStorage.getItem("largest_id")) + 1
+    }
+
+    const bodyContents = JSON.stringify({
+        "id": '' + new_id,
+        "path": path,
+        "tags": tags.split(" ") // Convert the tags string to an array of tags
+    });
+
+    try {
+        const response = await fetch("add_image", {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: bodyContents
+        });
+
+        // Check if the image was successfully added
+        response.ok ? await loadAllImages() : console.error("Failed to add image: ", response.status);
+
+    } catch (error) {
+        console.error("Error adding new image: ", error);
+    }
+};
+
 
 const getTagsFromStorage = () => {
     const tags = sessionStorage.getItem("tags");
@@ -57,7 +98,8 @@ const doesImageMatchSearch = (imageTags, searchTags) => {
     searchTags.forEach(tag => {
         if (tag.startsWith("-")) {
             excludedTags.push(tag.substring(1));
-        } else {
+        }
+        else {
             includedTags.push(tag);
         }
     });
@@ -80,14 +122,27 @@ $("#lookup-button").click(async () => {
 });
 
 $(document).ready(async () => {
-    await loadAllImages();
     const tagsToSearch = getTagsFromStorage().join(", ");
     $("#search_criteria").append(`<b>Tags:</b> <i>${tagsToSearch}</i>`);
 
-    $(".image_content").click(async (e) => {
+    $("#add_image").click(async () => {
+        // Opens a window
+        try {
+            const image_link = $("#image_link").val();
+            const image_tags = $("#image_tags").val();
+            await addNewImage(image_link, image_tags);
+            await location.reload();
+        }
+        catch (error) {
+            console.error("Image failed to post: ", error);
+        }
+    });
+
+    $(".main_area").on("click",".image_content",async (e) => {
         let image_id = e.target.id;
         sessionStorage.clear();
         sessionStorage.setItem("image_id", image_id);
         location.replace("view_image.html");
-    })
+    });
+    await loadAllImages();
 });
